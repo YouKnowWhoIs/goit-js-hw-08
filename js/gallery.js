@@ -82,14 +82,14 @@ const itemGallery = images
   )
   .join("");
 
+gallery.insertAdjacentHTML("beforeend", itemGallery);
+
 const galleryLink = document.querySelectorAll(".gallery-item a");
 
 galleryLink.forEach((link) => {
   link.addEventListener("click", (event) => {
     event.preventDefault();
-    const dataSource = event.target.dataset.source;
-    console.log(dataSource);
+    const dataSource = event.currentTarget.dataset.source;
+    console.log(link);
   });
 });
-
-gallery.insertAdjacentHTML("beforeend", itemGallery);
