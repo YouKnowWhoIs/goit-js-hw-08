@@ -17,7 +17,7 @@ body {
 }
 
 .gallery-image {
-  max-width: 360px;
+  max-width: 370px;
   height: 300px;
   cursor: pointer;
   transition: transform 250ms ease-in-out;
