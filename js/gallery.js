@@ -74,10 +74,15 @@ const images = [
 ];
 
 const gallery = document.querySelector(".gallery");
-const itemGallery = images
-  .map(
-    ({ original, preview, description }) =>
-      `<li class="gallery-item" >
+const galleryLink = document.querySelectorAll(".gallery-item a");
+
+gallery.addEventListener("click", CreateGallery);
+
+function itemGallery() {
+  markup = images
+    .map(
+      ({ original, preview, description }) =>
+        `<li class="gallery-item" >
   <a class="gallery-link" href="${original}">
     <img
       class="gallery-image"
@@ -87,29 +92,26 @@ const itemGallery = images
     />
   </a>
 </li>`
-  )
-  .join("");
+    )
+    .join("");
+  gallery.insertAdjacentHTML("beforeend", markup);
+}
 
-gallery.insertAdjacentHTML("beforeend", itemGallery);
-
-const galleryLink = document.querySelectorAll(".gallery-item a img");
+itemGallery();
 
 galleryLink.forEach((link) => {
   link.addEventListener("click", (event) => {
     event.preventDefault();
-    const dataAttributes = event.currentTarget.dataset.source;
-    //console.log(dataAttributes);
   });
 });
 
-gallery.addEventListener("click", (event) => {
+function CreateGallery(event) {
+  event.preventDefault();
+
   if (event.target.nodeName !== "IMG") return;
 
   const imgItem = event.target.closest("img");
   const imgAttribut = imgItem.dataset.source;
-
-  // console.log(imgItem);
-  // console.log(imgAttribut);
 
   const instance = basicLightbox.create(
     `
@@ -135,9 +137,9 @@ gallery.addEventListener("click", (event) => {
   instance.show();
 
   function handleKeyPress(event) {
-    console.log(event.code);
-    if (event.code === "Escape") {
+    console.log(event.key);
+    if (event.key === "Escape") {
       instance.close();
     }
   }
-});
+}
